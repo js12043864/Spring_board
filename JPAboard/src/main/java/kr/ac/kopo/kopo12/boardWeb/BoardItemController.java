@@ -271,19 +271,17 @@ public class BoardItemController {
 			}
 			model.addAttribute("keyWord", keyWord);
 			String[] spKeyWord = keyWord.split(" ");
-			model.addAttribute("spKeyWord", spKeyWord);
-			
-			List<BoardItem> boardItemList = boardItemRepository.findAllByBoardId(boardId);
-			List<BoardItem> boardItemContainList = new ArrayList<BoardItem>();
-			int number = 1;
+
+			List<BoardItem> boardItemList = boardItemRepository.findAllByParentIdIsNullAndBoardId(1);
 			HashSet<Integer> hash = new HashSet<Integer>();
 			for (BoardItem boardItem : boardItemList) {
-				for (String key : spKeyWord) {
+				for(String key : spKeyWord) {
 					if (boardItem.getContent().contains(key) || boardItem.getTitle().contains(key)) {
 						hash.add(boardItem.getId());
 					}
 				}
 			}
+			List<BoardItem> boardItemContainList = new ArrayList<BoardItem>();
 			for(int e : hash) {
 				boardItemContainList.add(boardItemRepository.findById(e));
 			}

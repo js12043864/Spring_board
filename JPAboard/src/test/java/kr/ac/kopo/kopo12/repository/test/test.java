@@ -1,6 +1,7 @@
 package kr.ac.kopo.kopo12.repository.test;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import kr.ac.kopo.kopo12.dao.BoardItemRepository;
 import kr.ac.kopo.kopo12.dao.BoardRepository;
-import kr.ac.kopo.kopo12.domain.Board;
 import kr.ac.kopo.kopo12.domain.BoardItem;
 import kr.ac.kopo.kopo12.service.BoardItemService;
 
@@ -28,12 +28,28 @@ public class test {
 	@Autowired
 	private BoardItemService boardItemService;
 
-//	@Test
-//		void findbyid() {
-//		Board board =  boardRepository.findById(1);
-//		List<BoardItem> boardItemList = board.getBoardItem();
-//	}
-//	
+	@Test
+	void search() {
+		List<BoardItem> boardItemList = boardItemRepository.findAllByParentIdIsNullAndBoardId(1);
+		List<BoardItem> boardItemContainList = new ArrayList<BoardItem>();
+		HashSet<Integer> hash = new HashSet<Integer>();
+		for (BoardItem boardItem : boardItemList) {
+				if (boardItem.getContent().contains("지금") || boardItem.getTitle().contains("지금")) {
+					hash.add(boardItem.getId());
+				}
+		}
+		System.out.println(boardItemRepository.findById(8).getTitle());
+		
+		//System.out.println(hash.size());
+		for(int e : hash) {
+			boardItemContainList.add(boardItemRepository.findById(e));
+		//boardItemContainList.add(boardItemRepository.findById(e));
+		}
+		System.out.println(boardItemContainList.size());
+		//System.out.println(boardItemContainList.size());
+		
+	}
+	
 
 //	@Test
 //	void findbyid3() {
@@ -50,15 +66,15 @@ public class test {
 ////		System.out.println(showComments.get(1).getContent());
 //	}
 //	
-	@Test
-	void create() {
-		Board board = boardRepository.findById(1);
-		BoardItem boardItem = new BoardItem("fasdfdsf", "fdsfdasf", boardItemService.date());
-		boardItem.setBoard(board);
-		List<BoardItem> list = new ArrayList<>();
-		list.add(boardItem);
-		board.setBoardItem(list);
-		boardRepository.save(board);
+//	@Test
+//	void create() {
+//		Board board = boardRepository.findById(1);
+//		BoardItem boardItem = new BoardItem("fasdfdsf", "fdsfdasf", boardItemService.date());
+//		boardItem.setBoard(board);
+//		List<BoardItem> list = new ArrayList<>();
+//		list.add(boardItem);
+//		board.setBoardItem(list);
+//		boardRepository.save(board);
 
 //		BoardItem boardItem = new BoardItem("fdsfsdf", "fadsfdsfds", boardItemService.date());
 //		List<BoardItem> list = new ArrayList<>();
@@ -80,7 +96,3 @@ public class test {
 //		
 //		board1.setBoardItem(list);
 	}
-
-	
-	
-}

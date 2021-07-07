@@ -17,7 +17,7 @@
 			<a href="PostTable?id=${boardId}&from=1" id="navi"><h1>${name}</h1></a>
 		</div>
 		<div style="display: inline-block; position:absolute; left:605px;">
-		<span id=key>"${keyWord}"검색결과</span>
+		<span id=key><b>"${keyWord}"검색결과</b></span>
 		</div>
 		<br>
 		<table>
@@ -31,27 +31,9 @@
 					<tr>
 						<td class=num>${i}</td>
 						<td class=title><a href=PostView?id=${boardItemList.getId()}&boardId=${boardId} id=movePage>${boardItemList.title}</a></td>
-						<td class=date>${boardItem.date}</td>
+						<td class=date>${boardItemList.date}</td>
 					</tr>
 			</c:forEach>
-			<%-- <%
-				while(it.hasNext()){
-				out.print("<tr>" +
-								"<td class=num>" +
-									cnt +
-								"</td>" +
-								"<td class=title>" +
-									"<a href=PostView.jsp?id=" + it.next() + "&boardId=" + boardId + " id=\"movePage\">" + boardItem.getTitle() + "</a>" +
-								"</td>" +
-								"<td class=date>" +
-									boardItem.getDate() +
-								"</td>" +
-							"</tr>");
-					
-				}
-				cnt++;
-			}
-			%> --%>
 		</table>
 	</body>
 </html>

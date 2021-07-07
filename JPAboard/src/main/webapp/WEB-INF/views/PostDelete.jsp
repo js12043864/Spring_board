@@ -8,13 +8,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-		window.addEventListener('DOMContentLoaded', function() {
-			location.href = 'PostTable?id=${boardId}&from=1';
-		});
-		</script>
+	window.addEventListener('DOMContentLoaded', function() {
+		location.href = 'PostTable?id=${boardId}&from=1';
+	});
+</script>
 </head>
 <body>
 

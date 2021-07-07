@@ -9,10 +9,10 @@
 <html lang="en">
 <head>
 <script>
-		window.addEventListener('DOMContentLoaded', function() {
-			location.href = 'PostView?id=${id}&boardId=${boardId}';
-		});
-		</script>
+	window.addEventListener('DOMContentLoaded', function() {
+		location.href = 'PostView?id=${id}&boardId=${boardId}';
+	});
+</script>
 </head>
 <body>
 
