@@ -1,0 +1,197 @@
+#navigation {
+    margin-left: 600px; 
+}
+
+
+table,td {
+    border: 2px solid #3C8DAD;
+    border-collapse: collapse;
+    width: 650px;
+    margin-left: 600px; 
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.new {
+    margin-top: 10px;
+    min-width: 140px;
+    padding: 0 30px;
+    color: #fff;
+    font-size: 16px;
+    font-family: "¸¼Àº°íµñ", Malgun Gothic, sans-serif;
+    font-weight: bold;
+    line-height: 40px;
+    border: 1px solid transparent;
+    background-color: #125D98;
+}
+
+.Id {
+    width: 100px;
+    text-align: center;
+    height: 30px;
+    color: #fff;
+    background-color: #125D98;
+}
+
+.Ttl{
+    width: 350px;
+    text-align: center;
+    height: 30px;
+    color: #fff;
+    background-color: #125D98;
+}
+.day {
+    width: 150px;
+    text-align: center;
+    height: 30px;
+    color: #fff;
+    background-color: #125D98;
+}
+
+.num {
+    width: 100px;
+    text-align: center;
+    height: 30px;
+}
+
+.title{
+    width: 350px;
+    padding-left: 10px;
+    height: 30px;
+}
+.date {
+    width: 150px;
+    text-align: center;
+    height: 30px;
+}
+
+#navi:link {
+    text-decoration: none;
+    color : black;
+}
+#navi:visited {
+    text-decoration: none;
+    color : black;
+}
+#movePage:link {
+    color : black;
+}
+
+#movePage:visited {
+    color : black;
+}
+
+.search {
+    text-align: left;
+    padding: 10px;
+    margin-left: 955px; 
+}
+
+#search {
+    min-width: 40px;
+    padding: 0 30px;
+    height: 38px;
+    color: #fff;
+    font-size: 16px;
+    font-family: "¸¼Àº°íµñ", Malgun Gothic, sans-serif;
+    font-weight: bold;
+    line-height: 35px;
+    border: 1px solid transparent;
+    background-color: #125D98;
+}
+
+#selectBoard{
+    min-width: 40px;
+    padding: 0 25px;
+    height: 38px;
+    color: #fff;
+    font-size: 16px;
+    font-family: "¸¼Àº°íµñ", Malgun Gothic, sans-serif;
+    font-weight: bold;
+    line-height: 35px;
+    border: 1px solid transparent;
+    background-color: #125D98;
+    margin-left:5px;
+    margin-bottom: 13px;
+}
+	
+.cancel, .write, .update, .list, .delete {
+    margin-top: 10px;
+    min-width: 140px;
+    padding: 0 30px;
+    color: #fff;
+    font-size: 16px;
+    font-family: "¸¼Àº°íµñ", Malgun Gothic, sans-serif;
+    font-weight: bold;
+    line-height: 40px;
+    border: 1px solid transparent;
+    background-color: #125D98;   
+}
+
+.option {
+    text-align: center;
+    font-size: 16px;
+    font-family: "¸¼Àº°íµñ", Malgun Gothic, sans-serif;
+    font-weight: bold;
+    width: 200px;
+}
+
+.content {
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 16px;
+    font-family: "¸¼Àº°íµñ", Malgun Gothic, sans-serif;
+    width: 400px;
+}
+
+#content {
+    height: 300px;
+    width: 400px;
+}
+
+#title {
+    width: 200px;
+    height: 20px;
+}
+
+#cnt {
+    width: 400px;
+}
+                
+textarea {
+    resize : none;
+}
+
+textarea:focus {
+    outline : none;
+}
+
+.addComment {
+    margin-top: 10px;
+    min-width: 140px;
+    padding: 0 30px;
+    padding-top : 10px;
+    padding-bottom : 10px;
+    color: #fff;
+    font-size: 16px;
+    font-family: "¸¼Àº°íµñ", Malgun Gothic, sans-serif;
+    font-weight: bold;
+    line-height: 20px;
+    border: 1px solid transparent;
+    background-color: #125D98;
+}
+			
+#cmt {
+    width: 645px;
+    margin-left: 600px;
+    margin-top: 10px;
+}
+
+.number {
+    width: 200px;
+    text-align: center;
+}
+.Date {
+    width: 200px;
+    text-align: center;
+}
