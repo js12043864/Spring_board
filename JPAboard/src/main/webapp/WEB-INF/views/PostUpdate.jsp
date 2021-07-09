@@ -25,8 +25,8 @@
 			<tr>
 				<td class="option">제목</td>
 				<td class="content"><input type="text" name="title" id="title"
-					required maxlength="20" value="${title}"></td>
-			</tr>
+					required maxlength="20" value="${boardItem.getTitle()}"></td>
+			</tr> 
 			<tr>
 				<td class="option">일자</td>
 				<td class="content">${date}</td>
@@ -34,7 +34,7 @@
 			<tr>
 				<td class="option">내용</td>
 				<td class="content" id="content"><textarea name="content"
-						id="cnt" rows="20" required placeholder="내용을 입력하세요">${content}</textarea></td>
+						id="cnt" rows="20" required placeholder="내용을 입력하세요">${boardItem.getContent()}</textarea></td>
 			</tr>
 		</table>
 		<div>

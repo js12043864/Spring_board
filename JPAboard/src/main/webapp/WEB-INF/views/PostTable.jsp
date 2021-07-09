@@ -33,15 +33,15 @@
 			<td class="Ttl"><b>제목</b></td>
 			<td class="day"><b>등록일</b></td>
 		</tr>
-
-		<c:forEach begin="${first}" end="${end}" varStatus="status">
+		"${page.getTotalPages()}"
+		<c:forEach var="paging" items="${page.content}">
 			<c:set var="i" value="${i+1}"></c:set>
 			<tr>
-				<td class=num><c:out value="${i+first}"></c:out></td>
+				<td class=num><c:out value="${i+boardNum[1]}"></c:out></td>
 				<td class=title><a
-					href=PostView?id=${boardItemList[i+first-1].getId()}&boardId=${boardItemList[i+first-1].getBoard().getId()}
-					id=movePage>${boardItemList[i+first-1].getTitle()}</a></td>
-				<td class=date>${boardItemList[i+first-1].getDate()}</td>
+					href=PostView?id=${boardItemList[i+boardNum[1]-1].getId()}&boardId=${boardItemList[i+boardNum[1]-1].getBoard().getId()}
+					id=movePage>${paging.title}</a></td>
+				<td class=date>${paging.date}</td>
 			<tr>
 		</c:forEach>
 	</table>
@@ -76,5 +76,7 @@
 		<span><a href=PostTable?id=${boardId}&from=${(boardNum[3]-1)*10 + 1}>끝</a></span>
 		<span>&nbsp;현재페이지: ${boardNum[4]}</span>
 	</div>
+	
+	
 </body>
 </html>

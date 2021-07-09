@@ -1,13 +1,13 @@
 package kr.ac.kopo.kopo12.repository.test;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import kr.ac.kopo.kopo12.dao.BoardItemRepository;
@@ -27,28 +27,37 @@ public class test {
 	
 	@Autowired
 	private BoardItemService boardItemService;
-
+	
 	@Test
-	void search() {
-		List<BoardItem> boardItemList = boardItemRepository.findAllByParentIdIsNullAndBoardId(1);
-		List<BoardItem> boardItemContainList = new ArrayList<BoardItem>();
-		HashSet<Integer> hash = new HashSet<Integer>();
-		for (BoardItem boardItem : boardItemList) {
-				if (boardItem.getContent().contains("지금") || boardItem.getTitle().contains("지금")) {
-					hash.add(boardItem.getId());
-				}
+	void page() {
+		PageRequest pageable = PageRequest.of(0, 10);
+		Page<BoardItem> page = boardItemRepository.findAllByParentIdIsNullAndBoardId(1, pageable);
+		for (int i = 0; i < page.getSize(); i++) {
+			BoardItem boardItem = page.
+			System.out.println("title : " + boardItem.getTitle() + " id : " + boardItem.getId());
 		}
-		System.out.println(boardItemRepository.findById(8).getTitle());
-		
-		//System.out.println(hash.size());
-		for(int e : hash) {
-			boardItemContainList.add(boardItemRepository.findById(e));
-		//boardItemContainList.add(boardItemRepository.findById(e));
-		}
-		System.out.println(boardItemContainList.size());
-		//System.out.println(boardItemContainList.size());
-		
 	}
+//	@Test
+//	void search() {
+//		List<BoardItem> boardItemList = boardItemRepository.findAllByParentIdIsNullAndBoardId(1);
+//		List<BoardItem> boardItemContainList = new ArrayList<BoardItem>();
+//		HashSet<Integer> hash = new HashSet<Integer>();
+//		for (BoardItem boardItem : boardItemList) {
+//				if (boardItem.getContent().contains("지금") || boardItem.getTitle().contains("지금")) {
+//					hash.add(boardItem.getId());
+//				}
+//		}
+//		System.out.println(boardItemRepository.findById(8).getTitle());
+//		
+//		//System.out.println(hash.size());
+//		for(int e : hash) {
+//			boardItemContainList.add(boardItemRepository.findById(e));
+//		//boardItemContainList.add(boardItemRepository.findById(e));
+//		}
+//		System.out.println(boardItemContainList.size());
+//		//System.out.println(boardItemContainList.size());
+//		
+//	}
 	
 
 //	@Test

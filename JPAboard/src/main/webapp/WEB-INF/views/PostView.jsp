@@ -24,15 +24,15 @@
 			</tr>
 			<tr>
 				<td class="option">제목</td>
-				<td class="content">${title}</td>
+				<td class="content">${boardItem.getTitle()}</td>
 			</tr>
 			<tr>
 				<td class="option">일자</td>
-				<td class="content">${date}</td>
+				<td class="content">${boardItem.getDate()}</td>
 			</tr>
 			<tr>
 				<td class="option">내용</td>
-				<td class="content">${content}</td>
+				<td class="content">${boardItem.getContent()}</td>
 			</tr>
 		</table>
 		<div>

@@ -2,6 +2,8 @@ package kr.ac.kopo.kopo12.dao;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,4 +15,6 @@ public interface BoardItemRepository extends JpaRepository<BoardItem, Integer> {
 	List<BoardItem> findAllByParentIdIsNullAndBoardId(int boardId);
 	List<BoardItem> findAllByParentId(Long id);
 	BoardItem findById(int id);
+	Page<BoardItem> findAllByParentIdIsNullAndBoardId(int boardId, Pageable pageable);
+	
 }

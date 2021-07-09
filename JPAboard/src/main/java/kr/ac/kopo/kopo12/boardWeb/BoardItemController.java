@@ -2,13 +2,13 @@ package kr.ac.kopo.kopo12.boardWeb;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +32,7 @@ public class BoardItemController {
 	@Autowired
 	private BoardItemService boardItemService;
 
-	@RequestMapping(value = "/PostTable")
+	@RequestMapping(value = "/PostTable")		//게시판 화면
 	public String postTable(Model model, HttpServletRequest request) {
 		try {
 			request.setCharacterEncoding("utf-8");
@@ -43,7 +43,14 @@ public class BoardItemController {
 			}
 			model.addAttribute("from", from);
 			model.addAttribute("boardId", boardId);
-
+			
+			PageRequest pageable = PageRequest.of(from-1, 10);
+			Page<BoardItem> page = boardItemRepository.findAllByParentIdIsNullAndBoardId(boardId, pageable);
+			model.addAttribute("page", page);
+			
+			//page.getTotalPages() 전체 페이지 수
+			//
+			
 			Board board = boardRepository.findById(boardId);
 			String name = board.getTitle();
 			model.addAttribute("name", name);
@@ -52,30 +59,21 @@ public class BoardItemController {
 			model.addAttribute("boardItemList", boardItemList);
 
 			int[] boardNum = boardItemService.number(boardItemList, from);
-			int end = boardNum[0];
-			int first = boardNum[1];
-			model.addAttribute("end", end);
-			model.addAttribute("first", first);
 			model.addAttribute("boardNum", boardNum);
-
-			int boardItemSize = boardItemList.size();
-			model.addAttribute("boardItemSize", boardItemSize);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "PostTable";
 	}
 
-	@RequestMapping(value = "/PostInsert")
+	@RequestMapping(value = "/PostInsert") //신규 화면
 	public String postInsert(Model model, HttpServletRequest request) {
 		try {
 			request.setCharacterEncoding("utf-8");
 			int boardId = Integer.parseInt(request.getParameter("id"));
 			model.addAttribute("boardId", boardId);
-
 			Board board = boardRepository.findById(boardId);
 			model.addAttribute("name", board.getTitle());
-
 			model.addAttribute("date", boardItemService.date());
 		} catch (Exception e) {
 
@@ -83,7 +81,7 @@ public class BoardItemController {
 		return "PostInsert";
 	}
 
-	@RequestMapping(value = "/PostWrite")
+	@RequestMapping(value = "/PostWrite") //게시글 쓰기 화면
 	public String postWrite(Model model, HttpServletRequest request) {
 		try {
 			request.setCharacterEncoding("utf-8");
@@ -113,7 +111,7 @@ public class BoardItemController {
 		return "PostWrite";
 	}
 
-	@RequestMapping(value = "/PostView")
+	@RequestMapping(value = "/PostView") //게시글 화면
 	public String postView(Model model, HttpServletRequest request) {
 		try {
 			request.setCharacterEncoding("utf-8");
@@ -123,8 +121,8 @@ public class BoardItemController {
 			model.addAttribute("id", id);
 			Board board = boardRepository.findById(boardId);
 			model.addAttribute("name", board.getTitle());
-
-			List<BoardItem> boardItemList = boardItemRepository.findAllByBoardId(boardId);
+			
+			List<BoardItem> boardItemList = boardItemRepository.findAllByParentIdIsNullAndBoardId(boardId);
 			int number = 0;
 			int startNumber = 0;
 			for (BoardItem boardItem2 : boardItemList) {
@@ -134,16 +132,13 @@ public class BoardItemController {
 				startNumber++;
 			}
 			BoardItem boardItem = boardItemRepository.findById(id);
-			String title = boardItem.getTitle();
+			model.addAttribute("boardItem",boardItem);
 			String content = boardItem.getContent();
-			String date = boardItem.getDate();
 			content = content.replaceAll("\n", "<br>");
+			boardItem.setContent(content);
 			model.addAttribute("number", number);
-			model.addAttribute("title", title);
-			model.addAttribute("date", date);
-			model.addAttribute("content", content);
 			
-			//댓글구현하기
+			//댓글보여주기
 			List<BoardItem> showComments = boardItemRepository.findAllByParentId(Long.valueOf(id));		
 			model.addAttribute("showComments", showComments);
 			
@@ -153,7 +148,7 @@ public class BoardItemController {
 		return "PostView";
 	}
 
-	@RequestMapping(value = "/CommentInsert")
+	@RequestMapping(value = "/CommentInsert") //댓글 쓰기 화면
 	public String commentInsert(Model model, HttpServletRequest request) {
 		try {
 			request.setCharacterEncoding("utf-8");
@@ -179,7 +174,7 @@ public class BoardItemController {
 		return "CommentInsert";
 	}
 
-	@RequestMapping(value = "/PostDelete")
+	@RequestMapping(value = "/PostDelete") //게시글 삭제 화면
 	public String postDelete(Model model, HttpServletRequest request) {
 		try {
 			request.setCharacterEncoding("utf-8");
@@ -192,7 +187,7 @@ public class BoardItemController {
 		return "PostDelete";
 	}
 
-	@RequestMapping(value = "/CompleteUpdate")
+	@RequestMapping(value = "/CompleteUpdate") //게시글 업데이트 완료 화면
 	public String completeUpdate(Model model, HttpServletRequest request) {
 		try {
 			request.setCharacterEncoding("utf-8");
@@ -217,7 +212,7 @@ public class BoardItemController {
 		return "CompleteUpdate";
 	}
 
-	@RequestMapping(value = "/PostUpdate")
+	@RequestMapping(value = "/PostUpdate") //게시글 업데이트 화면
 	public String postUpdate(Model model, HttpServletRequest request) {
 		try {
 			request.setCharacterEncoding("utf-8");
@@ -231,8 +226,7 @@ public class BoardItemController {
 			model.addAttribute("name", name);
 			
 			BoardItem boardItem = boardItemRepository.findById(id);
-			List<BoardItem> boardItemList = boardItemRepository.findAllByBoardId(boardId);
-			int size = boardItemList.size();
+			List<BoardItem> boardItemList = boardItemRepository.findAllByParentIdIsNullAndBoardId(boardId);
 			int number = 0;
 			int startNumber = 0;
 			for (BoardItem boardItem2 : boardItemList) {
@@ -241,20 +235,18 @@ public class BoardItemController {
 				}
 				startNumber++;
 			}
-			String title = boardItem.getTitle();
-			String content = boardItem.getContent();
 			String date = boardItemService.date();
 			model.addAttribute("number", number);
-			model.addAttribute("title", title);
+			model.addAttribute("boardItem", boardItem);
 			model.addAttribute("date", date);
-			model.addAttribute("content", content);
+			
 
 		} catch (Exception e) {
 		}
 		return "PostUpdate";
 	}
 
-	@RequestMapping(value = "/PostSearch")
+	@RequestMapping(value = "/PostSearch") //게시글 검색
 	public String postSearch(Model model, HttpServletRequest request) {
 		try {
 			request.setCharacterEncoding("utf-8");
