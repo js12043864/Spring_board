@@ -28,15 +28,15 @@ public class test {
 	@Autowired
 	private BoardItemService boardItemService;
 	
-	@Test
-	void page() {
-		PageRequest pageable = PageRequest.of(0, 10);
-		Page<BoardItem> page = boardItemRepository.findAllByParentIdIsNullAndBoardId(1, pageable);
-		for (int i = 0; i < page.getSize(); i++) {
-			BoardItem boardItem = page.
-			System.out.println("title : " + boardItem.getTitle() + " id : " + boardItem.getId());
-		}
-	}
+//	@Test
+//	void page() {
+//		PageRequest pageable = PageRequest.of(0, 10);
+//		Page<BoardItem> page = boardItemRepository.findAllByParentIdIsNullAndBoardId(1, pageable);
+//		for (int i = 0; i < page.getSize(); i++) {
+//			BoardItem boardItem = page.
+//			System.out.println("title : " + boardItem.getTitle() + " id : " + boardItem.getId());
+//		}
+//	}
 //	@Test
 //	void search() {
 //		List<BoardItem> boardItemList = boardItemRepository.findAllByParentIdIsNullAndBoardId(1);

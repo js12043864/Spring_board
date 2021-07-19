@@ -48,9 +48,6 @@ public class BoardItemController {
 			Page<BoardItem> page = boardItemRepository.findAllByParentIdIsNullAndBoardId(boardId, pageable);
 			model.addAttribute("page", page);
 			
-			//page.getTotalPages() 전체 페이지 수
-			//
-			
 			Board board = boardRepository.findById(boardId);
 			String name = board.getTitle();
 			model.addAttribute("name", name);
@@ -87,7 +84,7 @@ public class BoardItemController {
 			request.setCharacterEncoding("utf-8");
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
-			if (title.contains("<") || content.contains("<")) {
+			if (title.contains("<") || content.contains("<")) {	//예외처리
 				title = title.replaceAll("<", "&lt;");
 				content = content.replaceAll("<", "&lt;");
 			}
@@ -134,7 +131,7 @@ public class BoardItemController {
 			BoardItem boardItem = boardItemRepository.findById(id);
 			model.addAttribute("boardItem",boardItem);
 			String content = boardItem.getContent();
-			content = content.replaceAll("\n", "<br>");
+			content = content.replaceAll("\n", "<br>");	//예외처리
 			boardItem.setContent(content);
 			model.addAttribute("number", number);
 			
@@ -155,7 +152,7 @@ public class BoardItemController {
 			int boardId = Integer.parseInt(request.getParameter("boardId"));
 			int id = Integer.parseInt(request.getParameter("id"));
 			String comment = request.getParameter("comment");
-			if (comment.contains("<")) {
+			if (comment.contains("<")) {		//예외처리
 				comment = comment.replaceAll("<", "&lt;");
 			}
 			comment = comment.replaceAll("\n", "<br>");	
@@ -193,15 +190,18 @@ public class BoardItemController {
 			request.setCharacterEncoding("utf-8");
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
-			if (title.contains("<") || content.contains("<")) {
+			System.out.println(title + "   " + content);
+			if (title.contains("<") || content.contains("<")) {	//예외처리
 				title = title.replaceAll("<", "&lt;");
 				content = content.replaceAll("<", "&lt;");
 			}
 			int id = Integer.parseInt(request.getParameter("id"));
 			int boardId = Integer.parseInt(request.getParameter("boardId"));
 			BoardItem boardItem = boardItemRepository.findById(id);
+			String date = boardItemService.date();
 			boardItem.setTitle(title);
 			boardItem.setContent(content);
+			boardItem.setDate(date);
 			
 			boardItemRepository.flush();
 			model.addAttribute("boardId", boardId);
@@ -235,11 +235,8 @@ public class BoardItemController {
 				}
 				startNumber++;
 			}
-			String date = boardItemService.date();
 			model.addAttribute("number", number);
 			model.addAttribute("boardItem", boardItem);
-			model.addAttribute("date", date);
-			
 
 		} catch (Exception e) {
 		}
@@ -258,7 +255,7 @@ public class BoardItemController {
 			model.addAttribute("name", name);
 
 			String keyWord = request.getParameter("keyWord");
-			if (keyWord.contains("<")) {
+			if (keyWord.contains("<")) {	//예외처리
 				keyWord = keyWord.replaceAll("<", "&lt;");
 			}
 			model.addAttribute("keyWord", keyWord);

@@ -33,7 +33,6 @@
 			<td class="Ttl"><b>제목</b></td>
 			<td class="day"><b>등록일</b></td>
 		</tr>
-		"${page.getTotalPages()}"
 		<c:forEach var="paging" items="${page.content}">
 			<c:set var="i" value="${i+1}"></c:set>
 			<tr>
