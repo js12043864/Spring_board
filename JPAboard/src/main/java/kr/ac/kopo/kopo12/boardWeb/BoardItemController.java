@@ -261,7 +261,7 @@ public class BoardItemController {
 			model.addAttribute("keyWord", keyWord);
 			String[] spKeyWord = keyWord.split(" ");
 
-			List<BoardItem> boardItemList = boardItemRepository.findAllByParentIdIsNullAndBoardId(1);
+			List<BoardItem> boardItemList = boardItemRepository.findAllByParentIdIsNullAndBoardId(boardId);
 			HashSet<Integer> hash = new HashSet<Integer>();
 			for (BoardItem boardItem : boardItemList) {
 				for(String key : spKeyWord) {
