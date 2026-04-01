@@ -4,3 +4,4 @@
 - MVC Pattern
 - JPA
 - JSTl
+- MCP TEST입니다.
