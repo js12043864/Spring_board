@@ -212,36 +212,6 @@ public class BoardItemController {
 		return "CompleteUpdate";
 	}
 
-	@RequestMapping(value = "/PostUpdate") //게시글 업데이트 화면
-	public String postUpdate(Model model, HttpServletRequest request) {
-		try {
-			request.setCharacterEncoding("utf-8");
-			int id = Integer.parseInt(request.getParameter("id"));
-			int boardId = Integer.parseInt(request.getParameter("boardId"));
-			model.addAttribute("id", id);
-			model.addAttribute("boardId", boardId);
-
-			Board board = boardRepository.findById(boardId);
-			String name = board.getTitle();
-			model.addAttribute("name", name);
-			
-			BoardItem boardItem = boardItemRepository.findById(id);
-			List<BoardItem> boardItemList = boardItemRepository.findAllByParentIdIsNullAndBoardId(boardId);
-			int number = 0;
-			int startNumber = 0;
-			for (BoardItem boardItem2 : boardItemList) {
-				if (boardItem2.getId() == id) {
-					number = startNumber + 1;
-				}
-				startNumber++;
-			}
-			model.addAttribute("number", number);
-			model.addAttribute("boardItem", boardItem);
-
-		} catch (Exception e) {
-		}
-		return "PostUpdate";
-	}
 
 	@RequestMapping(value = "/PostSearch") //게시글 검색
 	public String postSearch(Model model, HttpServletRequest request) {
